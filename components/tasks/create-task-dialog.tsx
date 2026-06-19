@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus } from "lucide-react";
 import { createTask } from "@/app/actions/tasks";
+import { DatePicker } from "@/components/common/date-picker";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -23,11 +24,13 @@ function SubmitButton() {
 
 export function CreateTaskDialog() {
   const [open, setOpen] = useState(false);
+  const [dueDate, setDueDate] = useState<Date | undefined>();
   const [state, action] = useActionState(createTask, null);
 
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
+      setDueDate(undefined);
       toast.success("Task created successfully");
     } else if (state?.error) {
       toast.error(state.error);
@@ -55,7 +58,7 @@ export function CreateTaskDialog() {
           </kbd>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Create New Task</DialogTitle>
         </DialogHeader>
@@ -65,22 +68,50 @@ export function CreateTaskDialog() {
             <Label htmlFor="title">Title</Label>
             <Input id="title" name="title" placeholder="What needs to be done?" required />
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="category">Category</Label>
-            <Select name="category" required defaultValue="bugs">
-              <SelectTrigger>
-                <SelectValue placeholder="Select a category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="bugs">Bugs</SelectItem>
-                <SelectItem value="adjust">Adjust</SelectItem>
-                <SelectItem value="findings">Findings</SelectItem>
-              </SelectContent>
-            </Select>
+          
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="category">Category</Label>
+              <Select name="category" required defaultValue="bugs">
+                <SelectTrigger>
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bugs">Bugs</SelectItem>
+                  <SelectItem value="adjust">Adjust</SelectItem>
+                  <SelectItem value="findings">Findings</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="priority">Priority</Label>
+              <Select name="priority" required defaultValue="medium">
+                <SelectTrigger>
+                  <SelectValue placeholder="Priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="labels">Labels</Label>
+              <Input id="labels" name="labels" placeholder="frontend, urgent (comma separated)" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="due_date">Due Date</Label>
+              <DatePicker date={dueDate} setDate={setDueDate} name="due_date" />
+            </div>
+          </div>
+
           <div className="grid gap-2">
             <Label htmlFor="description">Description</Label>
-            <Textarea id="description" name="description" placeholder="Optional details..." />
+            <Textarea id="description" name="description" placeholder="Optional details..." className="h-24" />
           </div>
           <div className="flex justify-end gap-3 mt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>

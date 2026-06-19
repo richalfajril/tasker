@@ -1,326 +1,36 @@
 # CHANGELOG.md
 
-Semua perubahan penting pada project ini akan didokumentasikan di file ini.
-
-Format mengikuti prinsip:
-
-* Added
-* Changed
-* Fixed
-* Removed
-
----
-
-# [Unreleased]
-
-## Added
-
-* Diperkenalkannya tech stack baru sebagai single source of truth (Next.js 15, TailwindCSS v4, Zod, Sonner, lucide-react, installed shadcn/ui skills).
-* Supabase MCP support
-* Migration-based schema strategy
-
-## Changed
-
-* Belum ada.
-
-## Fixed
-
-* Belum ada.
-
-## Removed
-
-* Belum ada.
-
----
-
-# [1.0.0] - Initial Release
-
-Tanggal:
-
-```txt id="9f3r9o"
-2026-06-20
-```
-
-Status:
-
-```txt id="o5tl1i"
-In Development
-```
-
-## Added
-
-### Project Setup
-
-* Next.js 15
-* TypeScript
-* TailwindCSS v4
-* shadcn/ui
-* installed shadcn/ui skills
-* Supabase PostgreSQL
-* Vercel deployment
-
----
-
-### Documentation
-
-Menambahkan:
-
-* PRD.md
-* AGENTS.md
-* DOCUMENTATION_RULES.md
-* DESIGN.md
-* ROADMAP.md
-* CHANGELOG.md
-
----
-
-### Database
-
-Table:
-
-```txt id="7e9dti"
-tasks
-```
-
-Fields:
-
-* id
-* title
-* description
-* category
-* status
-* created_at
-* updated_at
-
----
-
-### Categories
-
-Menambahkan kategori:
-
-* bugs
-* adjust
-* findings
-
-Urutan section:
-
-1. Bugs
-2. Adjust
-3. Findings
-
----
-
-### Status
-
-Menambahkan:
-
-* ongoing
-* done
-
-Task yang dicentang akan berpindah ke tab Done.
-
----
-
-### CRUD
-
-Menambahkan:
-
-* Create Task
-* Read Task
-* Update Task
-* Delete Task
-
----
-
-### UI
-
-Menambahkan:
-
-* Single page layout
-* Tabs Ongoing
-* Tabs Done
-* Card task
-* Dialog create task
-* Dialog edit task
-* Delete confirmation
-* Responsive layout
-* Dark mode
-
----
-
-### Server Actions
-
-Menambahkan:
-
-* createTask()
-* updateTask()
-* deleteTask()
-* toggleTaskStatus()
-
----
-
-## Changed
-
-Belum ada.
-
----
-
-## Fixed
-
-Belum ada.
-
----
-
-## Removed
-
-Belum ada.
-
----
-
-# [1.2.0]
-
----
-
-# [1.1.0] - Usability Improvements
-
-Tanggal:
-
-```txt id="dxo4up"
-2026-06-20
-```
-
-## Added
-
-* Search task.
-* Filter category.
-* Sorting task (updated_at and created_at).
-* Keyboard shortcut `Cmd+K` for search and `Cmd+N` for new task.
-* Skeleton UI for loading states.
-
-## Changed
-
-* Moved task array management to a client component (`<TaskBoard />`) to support instant client-side filtering and sorting.
-
-## Fixed
-
-* Tidak ada.
-
-## Removed
-
-* Tidak ada.
-
----
-
-# [1.2.0]
-
-Tanggal:
-
-```txt id="87w1aq"
-YYYY-MM-DD
-```
-
-## Added
-
-* Priority level.
-* Labels.
-* Due date.
-
-## Changed
-
-* Better task card layout.
-
-## Fixed
-
-* Improve responsiveness.
-
-## Removed
-
-* Tidak ada.
-
----
-
-# [2.0.0]
-
-Tanggal:
-
-```txt id="fy7o8i"
-YYYY-MM-DD
-```
-
-## Added
-
-* Authentication.
-* Multi-user support.
-* Comments.
-* Activity log.
-
-## Changed
-
-* Improve architecture.
-
-## Fixed
-
-* Performance improvements.
-
-## Removed
-
-* Legacy implementation.
-
----
-
-# Rules
-
-Setiap perubahan wajib dicatat.
-
-Gunakan kategori:
-
-## Added
-
-Untuk fitur baru.
-
----
-
-## Changed
-
-Untuk perubahan perilaku atau refactor.
-
----
-
-## Fixed
-
-Untuk bug fix.
-
----
-
-## Removed
-
-Untuk fitur yang dihapus.
-
----
-
-# Example
-
-```md id="j84h83"
-# [1.0.1]
-
-## Fixed
-
-- Fix toggle task status.
-- Fix dark mode colors.
-
-## Changed
-
-- Improve spacing on mobile.
-```
-
----
-
-# Golden Rule
-
-Jangan mengubah changelog lama.
-
-Tambahkan entry baru di bagian atas.
-
-Urutan:
-
-Newest → Oldest.
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.2.0] - 2026-06-20
+
+### Added
+- Productivity fields: Priority (`low`, `medium`, `high`), Labels (multiple), Due Date
+- UI displays for priority badges and deadline tracking
+- Database schema migration to support new productivity columns
+
+## [1.1.0] - 2026-06-20
+
+### Added
+- Sort and Filter functionalities for tasks on client side.
+- Keyboard shortcuts (`Cmd+K` for search, `Cmd+N` for new task).
+- Skeleton loading component for `TaskBoard`.
+
+### Changed
+- Improved loading state architecture utilizing React 19 `Suspense`.
+- Refactored `TaskBoard` architecture to streamline components.
+- Switch tab UI for category filters inside Ongoing and Done sections.
+- Moved task description reading view from inline card to a modal `ViewTaskDialog` for cleaner layout.
+
+## [1.0.0] - 2026-06-20
+
+### Added
+- Initial project setup with Next.js 15, TailwindCSS v4, shadcn/ui.
+- Supabase MCP database connectivity.
+- Task CRUD operations via Server Actions.
+- Optimistic UI updates.
+- Loading, Empty, and Toast notification states.
+- Support for Category (Bugs, Adjust, Findings) and Status (Ongoing, Done).

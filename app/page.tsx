@@ -1,9 +1,9 @@
-import { TaskBoardSkeleton } from "@/components/task-board-skeleton";
+import { TaskBoardSkeleton } from "@/components/tasks/task-board-skeleton";
 import { Header } from "@/components/header";
 import { createClient } from "@/lib/supabase/server";
 import { Task } from "@/types/task";
 import { Suspense } from "react";
-import { TaskBoard } from "@/components/task-board";
+import { TaskBoard } from "@/components/tasks/task-board";
 
 async function fetchTasks(): Promise<Task[]> {
   const supabase = await createClient((url, init) => {

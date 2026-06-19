@@ -21,3 +21,13 @@ Before starting any feature implementation or refactoring, you MUST read the fol
 Additionally, refer to `docs/features/`, `docs/decisions/`, and the rest of `docs/architecture/` for granular details.
 
 **Rule**: Always search and rely on `docs/` before making architectural decisions.
+
+## Agent Workflow & Planning Mode
+
+As an AI Agent, you MUST follow this strict procedure when building or altering features:
+1. **Implementation Plan First**: Always create an `implementation_plan.md` artifact before writing or modifying any code.
+2. **Open Questions**: If you have any clarifying questions or design ambiguities, embed them as "Open Questions" within the implementation plan. 
+3. **Stop & Wait**: STOP execution and allow the user to answer the open questions. Do NOT proceed to write code yet.
+4. **Update the Plan**: Update the implementation plan to reflect the user's answers.
+5. **Manual Proceed Required**: You MUST STOP again and wait for the user to explicitly read the plan and say "proceed" (or click proceed) before you execute any commands or file changes.
+6. **Unplanned Adjustments**: Any adjustments or revisions made mid-flight MUST be documented in the version of `ROADMAP.md` and `CHANGELOG.md` whose focus matches the context of the adjustment.

@@ -306,9 +306,16 @@ docs/prd.md
 
 3. Buat file markdown per fitur.
 
-4. Implementasikan code berdasarkan file feature tersebut.
+4. **Implementation Plan & Approval**: Sebelum mengimplementasikan sesuatu (menulis kode), wajib buat **Implementation Plan** terlebih dahulu. 
+   - Jika ada pertanyaan terbuka (Open Questions) di dalam plan tersebut, STOP dan biarkan user menjawab pertanyaan tersebut.
+   - Setelah user menjawab, UPDATE Implementation Plan tersebut dengan jawaban yang telah disepakati.
+   - STOP kembali dan tunggu sampai user secara eksplisit menyetujui (klik "proceed") sebelum memulai eksekusi penulisan kode.
 
-5. Jika implementasi berubah, update dokumentasi terlebih dahulu.
+5. Implementasikan code berdasarkan file feature tersebut.
+
+6. Jika implementasi berubah, update dokumentasi terlebih dahulu.
+
+7. **Unplanned Adjustments**: Jika ada penyesuaian atau revisi (adjustment) di tengah jalan, wajib dokumentasikan perubahan tersebut ke dalam versi di `ROADMAP.md` dan `CHANGELOG.md` yang fokusnya paling sesuai dengan konteks revisi (misal: revisi UI/UX dimasukkan ke versi dengan fokus Usability).
 
 Dokumentasi adalah source of truth.
 

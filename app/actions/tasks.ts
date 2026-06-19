@@ -9,8 +9,11 @@ const StatusSchema = z.enum(["ongoing", "done"]);
 
 const CreateTaskSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  description: z.string().optional().nullable(),
-  category: CategorySchema,
+  description: z.string().optional(),
+  category: z.enum(["bugs", "adjust", "findings"]),
+  priority: z.enum(["low", "medium", "high"]).default("medium"),
+  labels: z.string().transform(val => val ? val.split(',').map(s => s.trim()).filter(Boolean) : []),
+  due_date: z.string().optional().nullable(),
 });
 
 const UpdateTaskSchema = z.object({
@@ -18,6 +21,10 @@ const UpdateTaskSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().optional().nullable(),
   category: CategorySchema,
+  status: StatusSchema.optional(),
+  priority: z.enum(["low", "medium", "high"]).optional(),
+  labels: z.string().transform(val => val ? val.split(',').map(s => s.trim()).filter(Boolean) : []).optional(),
+  due_date: z.string().optional().nullable(),
 });
 
 const DeleteTaskSchema = z.object({
@@ -39,6 +46,9 @@ export async function createTask(prevState: ActionState | null, formData: FormDa
     title: formData.get("title"),
     description: formData.get("description"),
     category: formData.get("category"),
+    priority: formData.get("priority"),
+    labels: formData.get("labels"),
+    due_date: formData.get("due_date"),
   };
 
   const result = CreateTaskSchema.safeParse(data);
@@ -51,6 +61,9 @@ export async function createTask(prevState: ActionState | null, formData: FormDa
     title: result.data.title,
     description: result.data.description,
     category: result.data.category,
+    priority: result.data.priority,
+    labels: result.data.labels,
+    due_date: result.data.due_date || null,
     status: "ongoing",
   });
 
@@ -68,6 +81,9 @@ export async function updateTask(prevState: ActionState | null, formData: FormDa
     title: formData.get("title"),
     description: formData.get("description"),
     category: formData.get("category"),
+    priority: formData.get("priority"),
+    labels: formData.get("labels"),
+    due_date: formData.get("due_date"),
   };
 
   const result = UpdateTaskSchema.safeParse(data);
@@ -82,6 +98,9 @@ export async function updateTask(prevState: ActionState | null, formData: FormDa
       title: result.data.title,
       description: result.data.description,
       category: result.data.category,
+      priority: result.data.priority,
+      labels: result.data.labels,
+      due_date: result.data.due_date || null,
       updated_at: new Date().toISOString(),
     })
     .eq("id", result.data.id);

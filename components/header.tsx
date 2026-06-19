@@ -1,4 +1,4 @@
-import { CreateTaskDialog } from "./create-task-dialog";
+import { CreateTaskDialog } from "@/components/tasks/create-task-dialog";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {

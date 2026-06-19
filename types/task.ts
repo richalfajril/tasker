@@ -6,8 +6,11 @@ export interface Task {
   id: string;
   title: string;
   description: string | null;
-  category: Category;
-  status: Status;
+  category: "bugs" | "adjust" | "findings";
+  status: "ongoing" | "done";
+  priority: "low" | "medium" | "high";
+  labels: string[];
+  due_date: string | null;
   created_at: string;
   updated_at: string;
 }

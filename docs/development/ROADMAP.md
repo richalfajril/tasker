@@ -55,18 +55,18 @@ Menyediakan aplikasi sederhana untuk mencatat perkembangan project.
 
 ### Task CRUD
 
-* [ ] Create task
-* [ ] Read task
-* [ ] Update task
-* [ ] Delete task
+* [x] Create task
+* [x] Read task
+* [x] Update task
+* [x] Delete task
 
 ---
 
 ### Categories
 
-* [ ] Bugs
-* [ ] Adjust
-* [ ] Findings
+* [x] Bugs
+* [x] Adjust
+* [x] Findings
 
 Urutan section:
 
@@ -78,8 +78,8 @@ Urutan section:
 
 ### Status
 
-* [ ] Ongoing
-* [ ] Done
+* [x] Ongoing
+* [x] Done
 
 Checkbox akan memindahkan task antar status.
 
@@ -87,12 +87,12 @@ Checkbox akan memindahkan task antar status.
 
 ### UI
 
-* [ ] Single page
-* [ ] Responsive layout
-* [ ] Dark mode
-* [ ] Empty state
-* [ ] Loading state
-* [ ] Toast notification
+* [x] Single page
+* [x] Responsive layout
+* [x] Dark mode
+* [x] Empty state
+* [x] Loading state
+* [x] Toast notification
 
 ---
 
@@ -100,9 +100,9 @@ Checkbox akan memindahkan task antar status.
 
 Supabase PostgreSQL
 
-* [ ] tasks table
-* [ ] created_at
-* [ ] updated_at
+* [x] tasks table
+* [x] created_at
+* [x] updated_at
 
 ---
 
@@ -146,6 +146,13 @@ Meningkatkan usability.
 
 ---
 
+## Adjustments (Unplanned Features)
+
+* [x] Gunakan Switchtab (Tabs) untuk kategori (Bugs/Adjust/Findings) di dalam tab Ongoing & Done
+* [x] Tambahkan icon mata pada list untuk melihat detail deskripsi di modal
+
+---
+
 # v1.2.0
 
 Fokus:
@@ -156,27 +163,27 @@ Meningkatkan produktivitas.
 
 Tambahkan:
 
-* [ ] Low
-* [ ] Medium
-* [ ] High
+* [x] Low
+* [x] Medium
+* [x] High
 
 ---
 
 ## Labels
 
-* [ ] Multiple labels
+* [x] Multiple labels
 
 ---
 
 ## Notes
 
-* [ ] Rich description
+* [x] Rich description
 
 ---
 
 ## Due Date
 
-* [ ] Deadline task
+* [x] Deadline task
 
 ---
 

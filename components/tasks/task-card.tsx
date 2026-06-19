@@ -13,6 +13,7 @@ import { toggleTaskStatus } from "@/app/actions/tasks";
 import { useActionState, useRef } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
+import { CalendarIcon } from "lucide-react";
 
 interface TaskCardProps {
   task: Task;
@@ -95,12 +96,35 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
               </Tooltip>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 mt-2 text-xs text-muted-foreground">
             <Badge variant={categoryColors[task.category]} className="capitalize">
               {task.category}
             </Badge>
-            <span>•</span>
-            <span>{formatDistanceToNow(new Date(task.updated_at), { addSuffix: true })}</span>
+            
+            {task.priority === "high" && (
+              <Badge variant="destructive" className="capitalize">High</Badge>
+            )}
+            {task.priority === "medium" && (
+              <Badge variant="secondary" className="capitalize">Medium</Badge>
+            )}
+            {task.priority === "low" && (
+              <Badge variant="outline" className="capitalize text-muted-foreground">Low</Badge>
+            )}
+
+            {task.labels && task.labels.length > 0 && task.labels.map(label => (
+              <Badge key={label} variant="outline" className="capitalize">
+                {label}
+              </Badge>
+            ))}
+
+            {task.due_date && (
+              <div className="flex items-center gap-1 text-xs whitespace-nowrap">
+                <CalendarIcon className="h-3 w-3" />
+                <span className={new Date(task.due_date) < new Date() ? "text-destructive font-medium" : ""}>
+                  Due {formatDistanceToNow(new Date(task.due_date), { addSuffix: true })}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </CardHeader>
