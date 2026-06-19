@@ -1,16 +1,37 @@
 "use client";
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useActionState, useState, useEffect } from "react";
+import { useFormStatus } from "react-dom";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { deleteTask } from "@/app/actions/tasks";
 
 interface DeleteTaskDialogProps {
   taskId: string;
 }
 
-export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
+function SubmitButton() {
+  const { pending } = useFormStatus();
   return (
-    <AlertDialog>
+    <Button type="submit" variant="destructive" disabled={pending}>
+      {pending ? "Deleting..." : "Delete"}
+    </Button>
+  );
+}
+
+export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
+  const [open, setOpen] = useState(false);
+  const [state, action] = useActionState(deleteTask, null);
+
+  useEffect(() => {
+    if (state?.success) {
+      setOpen(false);
+    }
+  }, [state]);
+
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
           <Trash2 className="h-4 w-4" />
@@ -24,12 +45,14 @@ export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
             This action cannot be undone. This will permanently delete this task from the database.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-            Delete
-          </AlertDialogAction>
-        </AlertDialogFooter>
+        <form action={action}>
+          <input type="hidden" name="id" value={taskId} />
+          {state?.error && <p className="text-sm text-destructive mb-4">{state.error}</p>}
+          <AlertDialogFooter>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+            <SubmitButton />
+          </AlertDialogFooter>
+        </form>
       </AlertDialogContent>
     </AlertDialog>
   );

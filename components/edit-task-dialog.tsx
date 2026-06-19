@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pencil } from "lucide-react";
 import { Task } from "@/types/task";
+import { updateTask } from "@/app/actions/tasks";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? "Saving..." : "Save Changes"}
+    </Button>
+  );
+}
 
 interface EditTaskDialogProps {
   task: Task;
@@ -16,6 +27,13 @@ interface EditTaskDialogProps {
 
 export function EditTaskDialog({ task }: EditTaskDialogProps) {
   const [open, setOpen] = useState(false);
+  const [state, action] = useActionState(updateTask, null);
+
+  useEffect(() => {
+    if (state?.success) {
+      setOpen(false);
+    }
+  }, [state]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -29,7 +47,8 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
         <DialogHeader>
           <DialogTitle>Edit Task</DialogTitle>
         </DialogHeader>
-        <form className="grid gap-4 py-4">
+        <form action={action} className="grid gap-4 py-4">
+          {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
           <input type="hidden" name="id" value={task.id} />
           <div className="grid gap-2">
             <Label htmlFor="title">Title</Label>
@@ -54,7 +73,7 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
           </div>
           <div className="flex justify-end gap-3 mt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button type="submit">Save Changes</Button>
+            <SubmitButton />
           </div>
         </form>
       </DialogContent>

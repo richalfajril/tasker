@@ -20,15 +20,30 @@ const UpdateTaskSchema = z.object({
   category: CategorySchema,
 });
 
+const DeleteTaskSchema = z.object({
+  id: z.string().uuid("Invalid ID"),
+});
+
 const ToggleStatusSchema = z.object({
   id: z.string().uuid("Invalid ID"),
   status: StatusSchema,
 });
 
-export async function createTask(data: z.infer<typeof CreateTaskSchema>) {
+export type ActionState = {
+  error?: string | null;
+  success?: boolean;
+};
+
+export async function createTask(prevState: ActionState | null, formData: FormData): Promise<ActionState> {
+  const data = {
+    title: formData.get("title"),
+    description: formData.get("description"),
+    category: formData.get("category"),
+  };
+
   const result = CreateTaskSchema.safeParse(data);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { error: result.error.issues[0].message, success: false };
   }
 
   const supabase = await createClient();
@@ -40,17 +55,24 @@ export async function createTask(data: z.infer<typeof CreateTaskSchema>) {
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, success: false };
   }
 
   revalidatePath("/");
-  return { success: true };
+  return { success: true, error: null };
 }
 
-export async function updateTask(data: z.infer<typeof UpdateTaskSchema>) {
+export async function updateTask(prevState: ActionState | null, formData: FormData): Promise<ActionState> {
+  const data = {
+    id: formData.get("id"),
+    title: formData.get("title"),
+    description: formData.get("description"),
+    category: formData.get("category"),
+  };
+
   const result = UpdateTaskSchema.safeParse(data);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { error: result.error.issues[0].message, success: false };
   }
 
   const supabase = await createClient();
@@ -65,31 +87,42 @@ export async function updateTask(data: z.infer<typeof UpdateTaskSchema>) {
     .eq("id", result.data.id);
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, success: false };
   }
 
   revalidatePath("/");
-  return { success: true };
+  return { success: true, error: null };
 }
 
-export async function deleteTask(id: string) {
-  if (!id) return { error: "ID is required" };
+export async function deleteTask(prevState: ActionState | null, formData: FormData): Promise<ActionState> {
+  const data = {
+    id: formData.get("id"),
+  };
+  const result = DeleteTaskSchema.safeParse(data);
+  if (!result.success) {
+    return { error: result.error.issues[0].message, success: false };
+  }
 
   const supabase = await createClient();
-  const { error } = await supabase.from("tasks").delete().eq("id", id);
+  const { error } = await supabase.from("tasks").delete().eq("id", result.data.id);
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, success: false };
   }
 
   revalidatePath("/");
-  return { success: true };
+  return { success: true, error: null };
 }
 
-export async function toggleTaskStatus(data: z.infer<typeof ToggleStatusSchema>) {
+export async function toggleTaskStatus(prevState: ActionState | null, formData: FormData): Promise<ActionState> {
+  const data = {
+    id: formData.get("id"),
+    status: formData.get("status"),
+  };
+  
   const result = ToggleStatusSchema.safeParse(data);
   if (!result.success) {
-    return { error: result.error.issues[0].message };
+    return { error: result.error.issues[0].message, success: false };
   }
 
   const supabase = await createClient();
@@ -102,9 +135,9 @@ export async function toggleTaskStatus(data: z.infer<typeof ToggleStatusSchema>)
     .eq("id", result.data.id);
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, success: false };
   }
 
   revalidatePath("/");
-  return { success: true };
+  return { success: true, error: null };
 }
