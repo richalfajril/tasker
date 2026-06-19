@@ -1,5 +1,7 @@
 "use client";
 
+import { ViewTaskDialog } from "./view-task-dialog";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
@@ -9,14 +11,33 @@ import { EditTaskDialog } from "./edit-task-dialog";
 import { DeleteTaskDialog } from "./delete-task-dialog";
 import { toggleTaskStatus } from "@/app/actions/tasks";
 import { useActionState, useRef } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 interface TaskCardProps {
   task: Task;
+  addOptimisticTask?: (action: Task) => void;
 }
 
-export function TaskCard({ task }: TaskCardProps) {
+export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
   const isDone = task.status === "done";
-  const [state, action] = useActionState(toggleTaskStatus, null);
+  const [, action] = useActionState(async (prevState: { success?: boolean; error?: string | null } | null, formData: FormData) => {
+    // Fire optimistic update immediately on form submit
+    if (addOptimisticTask) {
+      addOptimisticTask({ ...task, status: isDone ? "ongoing" : "done" });
+    }
+    
+    const result = await toggleTaskStatus(prevState, formData);
+    
+    if (result.success) {
+      toast.success("Task status updated");
+    } else if (result.error) {
+      toast.error(result.error);
+    }
+    
+    return result;
+  }, null);
+  
   const formRef = useRef<HTMLFormElement>(null);
   
   const categoryColors = {
@@ -42,8 +63,36 @@ export function TaskCard({ task }: TaskCardProps) {
               {task.title}
             </h3>
             <div className="flex items-center gap-1">
-              <EditTaskDialog task={task} />
-              <DeleteTaskDialog taskId={task.id} />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <ViewTaskDialog task={task} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>View Description</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <EditTaskDialog task={task} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Edit Task</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
+                    <DeleteTaskDialog taskId={task.id} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete Task</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -55,11 +104,6 @@ export function TaskCard({ task }: TaskCardProps) {
           </div>
         </div>
       </CardHeader>
-      {task.description && (
-        <CardContent className="pt-0 pb-4 pl-12 text-sm text-muted-foreground">
-          {task.description}
-        </CardContent>
-      )}
     </Card>
   );
 }

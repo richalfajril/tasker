@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 
@@ -58,7 +58,7 @@ export async function createTask(prevState: ActionState | null, formData: FormDa
     return { error: error.message, success: false };
   }
 
-  revalidatePath("/");
+  revalidateTag("tasks");
   return { success: true, error: null };
 }
 
@@ -90,7 +90,7 @@ export async function updateTask(prevState: ActionState | null, formData: FormDa
     return { error: error.message, success: false };
   }
 
-  revalidatePath("/");
+  revalidateTag("tasks");
   return { success: true, error: null };
 }
 
@@ -110,7 +110,7 @@ export async function deleteTask(prevState: ActionState | null, formData: FormDa
     return { error: error.message, success: false };
   }
 
-  revalidatePath("/");
+  revalidateTag("tasks");
   return { success: true, error: null };
 }
 
@@ -138,6 +138,6 @@ export async function toggleTaskStatus(prevState: ActionState | null, formData: 
     return { error: error.message, success: false };
   }
 
-  revalidatePath("/");
+  revalidateTag("tasks");
   return { success: true, error: null };
 }

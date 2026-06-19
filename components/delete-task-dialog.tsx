@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useActionState, useState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
@@ -27,6 +28,9 @@ export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
+      toast.success("Task deleted successfully");
+    } else if (state?.error) {
+      toast.error(state.error);
     }
   }, [state]);
 

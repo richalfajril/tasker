@@ -34,13 +34,13 @@ Hindari over-engineering.
 # Current Version
 
 ```txt
-v1.0.0
+v1.1.0
 ```
 
 Status:
 
 ```txt
-In Development
+Completed
 ```
 
 ---
@@ -120,29 +120,29 @@ Meningkatkan usability.
 
 ## Search
 
-* [ ] Search berdasarkan title
+* [x] Search berdasarkan title
 
 ---
 
 ## Filter
 
-* [ ] Filter category
-* [ ] Filter status
+* [x] Filter category
+* [x] Filter status (via Tabs)
 
 ---
 
 ## Sorting
 
-* [ ] Sort by updated_at
-* [ ] Sort by created_at
+* [x] Sort by updated_at
+* [x] Sort by created_at
 
 ---
 
 ## UX Improvement
 
-* [ ] Keyboard shortcut
-* [ ] Better loading state
-* [ ] Skeleton UI
+* [x] Keyboard shortcut
+* [x] Better loading state
+* [x] Skeleton UI
 
 ---
 

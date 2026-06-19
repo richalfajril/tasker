@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState, useEffect, useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -32,6 +33,9 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
+      toast.success("Task updated successfully");
+    } else if (state?.error) {
+      toast.error(state.error);
     }
   }, [state]);
 

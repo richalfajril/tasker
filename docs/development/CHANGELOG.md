@@ -177,31 +177,33 @@ Belum ada.
 
 ---
 
-# Template Untuk Release Berikutnya
+# [1.2.0]
 
 ---
 
-# [1.1.0]
+# [1.1.0] - Usability Improvements
 
 Tanggal:
 
 ```txt id="dxo4up"
-YYYY-MM-DD
+2026-06-20
 ```
 
 ## Added
 
 * Search task.
 * Filter category.
-* Sorting task.
+* Sorting task (updated_at and created_at).
+* Keyboard shortcut `Cmd+K` for search and `Cmd+N` for new task.
+* Skeleton UI for loading states.
 
 ## Changed
 
-* Improve loading state.
+* Moved task array management to a client component (`<TaskBoard />`) to support instant client-side filtering and sorting.
 
 ## Fixed
 
-* Minor UI bugs.
+* Tidak ada.
 
 ## Removed
 
