@@ -30,4 +30,4 @@ As an AI Agent, you MUST follow this strict procedure when building or altering 
 3. **Stop & Wait**: STOP execution and allow the user to answer the open questions. Do NOT proceed to write code yet.
 4. **Update the Plan**: Update the implementation plan to reflect the user's answers.
 5. **Manual Proceed Required**: You MUST STOP again and wait for the user to explicitly read the plan and say "proceed" (or click proceed) before you execute any commands or file changes.
-6. **Unplanned Adjustments**: Any adjustments or revisions made mid-flight MUST be documented in the version of `ROADMAP.md` and `CHANGELOG.md` whose focus matches the context of the adjustment.
+6. **Unplanned Adjustments**: Any adjustments or revisions made mid-flight MUST be PROACTIVELY documented in the version of `ROADMAP.md` and `CHANGELOG.md` whose focus matches the context of the adjustment. Do this immediately without waiting for the user to remind you.

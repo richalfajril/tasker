@@ -12,12 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - UI displays for priority badges and deadline tracking
 - Database schema migration to support new productivity columns
 
+### Changed
+- Refactored component folder structure to use Feature-Sliced Design (Domain-based folders like `components/tasks/` and `components/common/`).
+
 ## [1.1.0] - 2026-06-20
 
 ### Added
 - Sort and Filter functionalities for tasks on client side.
 - Keyboard shortcuts (`Cmd+K` for search, `Cmd+N` for new task).
 - Skeleton loading component for `TaskBoard`.
+- Language toggle (ID/EN) for localization of UI text.
 
 ### Changed
 - Improved loading state architecture utilizing React 19 `Suspense`.

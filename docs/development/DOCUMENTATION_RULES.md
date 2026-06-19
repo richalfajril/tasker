@@ -315,7 +315,7 @@ docs/prd.md
 
 6. Jika implementasi berubah, update dokumentasi terlebih dahulu.
 
-7. **Unplanned Adjustments**: Jika ada penyesuaian atau revisi (adjustment) di tengah jalan, wajib dokumentasikan perubahan tersebut ke dalam versi di `ROADMAP.md` dan `CHANGELOG.md` yang fokusnya paling sesuai dengan konteks revisi (misal: revisi UI/UX dimasukkan ke versi dengan fokus Usability).
+7. **Unplanned Adjustments**: Jika ada penyesuaian atau revisi (adjustment) di tengah jalan, wajib PROAKTIF mendokumentasikan perubahan tersebut ke dalam versi di `ROADMAP.md` dan `CHANGELOG.md` yang fokusnya paling sesuai dengan konteks revisi. Lakukan secara otomatis tanpa menunggu user mengingatkan.
 
 Dokumentasi adalah source of truth.
 

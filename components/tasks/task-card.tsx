@@ -14,6 +14,7 @@ import { useActionState, useRef } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { CalendarIcon } from "lucide-react";
+import { useLanguage } from "@/components/common/language-provider";
 
 interface TaskCardProps {
   task: Task;
@@ -21,6 +22,7 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
+  const { t } = useLanguage();
   const isDone = task.status === "done";
   const [, action] = useActionState(async (prevState: { success?: boolean; error?: string | null } | null, formData: FormData) => {
     // Fire optimistic update immediately on form submit
@@ -31,7 +33,7 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
     const result = await toggleTaskStatus(prevState, formData);
     
     if (result.success) {
-      toast.success("Task status updated");
+      toast.success(t("statusUpdated"));
     } else if (result.error) {
       toast.error(result.error);
     }
@@ -77,11 +79,21 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div>
+                    <ViewTaskDialog task={task} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t("viewDescription")}</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div>
                     <EditTaskDialog task={task} />
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Edit Task</p>
+                  <p>{t("editTask")}</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -91,24 +103,24 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Delete Task</p>
+                  <p>{t("deleteTask")}</p>
                 </TooltipContent>
               </Tooltip>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2 mt-2 text-xs text-muted-foreground">
             <Badge variant={categoryColors[task.category]} className="capitalize">
-              {task.category}
+              {t(task.category as keyof typeof categoryColors)}
             </Badge>
             
             {task.priority === "high" && (
-              <Badge variant="destructive" className="capitalize">High</Badge>
+              <Badge variant="destructive" className="capitalize">{t("high")}</Badge>
             )}
             {task.priority === "medium" && (
-              <Badge variant="secondary" className="capitalize">Medium</Badge>
+              <Badge variant="secondary" className="capitalize">{t("medium")}</Badge>
             )}
             {task.priority === "low" && (
-              <Badge variant="outline" className="capitalize text-muted-foreground">Low</Badge>
+              <Badge variant="outline" className="capitalize text-muted-foreground">{t("low")}</Badge>
             )}
 
             {task.labels && task.labels.length > 0 && task.labels.map(label => (
@@ -121,7 +133,7 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
               <div className="flex items-center gap-1 text-xs whitespace-nowrap">
                 <CalendarIcon className="h-3 w-3" />
                 <span className={new Date(task.due_date) < new Date() ? "text-destructive font-medium" : ""}>
-                  Due {formatDistanceToNow(new Date(task.due_date), { addSuffix: true })}
+                  {t("due")} {formatDistanceToNow(new Date(task.due_date), { addSuffix: true })}
                 </span>
               </div>
             )}

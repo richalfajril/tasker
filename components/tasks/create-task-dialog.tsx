@@ -13,16 +13,20 @@ import { Plus } from "lucide-react";
 import { createTask } from "@/app/actions/tasks";
 import { DatePicker } from "@/components/common/date-picker";
 
+import { useLanguage } from "@/components/common/language-provider";
+
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { t } = useLanguage();
   return (
     <Button type="submit" disabled={pending}>
-      {pending ? "Saving..." : "Save"}
+      {pending ? t("saving") : t("saveChanges")}
     </Button>
   );
 }
 
 export function CreateTaskDialog() {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [dueDate, setDueDate] = useState<Date | undefined>();
   const [state, action] = useActionState(createTask, null);
@@ -31,11 +35,11 @@ export function CreateTaskDialog() {
     if (state?.success) {
       setOpen(false);
       setDueDate(undefined);
-      toast.success("Task created successfully");
+      toast.success(t("taskCreated"));
     } else if (state?.error) {
       toast.error(state.error);
     }
-  }, [state]);
+  }, [state, t]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -52,7 +56,7 @@ export function CreateTaskDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="mr-2 h-4 w-4" /> New Task
+          <Plus className="mr-2 h-4 w-4" /> {t("newTask")}
           <kbd className="ml-2 pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
             <span className="text-xs">⌘</span>N
           </kbd>
@@ -60,39 +64,39 @@ export function CreateTaskDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Create New Task</DialogTitle>
+          <DialogTitle>{t("createTask")}</DialogTitle>
         </DialogHeader>
         <form action={action} className="grid gap-4 py-4">
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
-            <Input id="title" name="title" placeholder="What needs to be done?" required />
+            <Label htmlFor="title">{t("title")}</Label>
+            <Input id="title" name="title" required />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">{t("category")}</Label>
               <Select name="category" required defaultValue="bugs">
                 <SelectTrigger>
-                  <SelectValue placeholder="Category" />
+                  <SelectValue placeholder={t("category")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="bugs">Bugs</SelectItem>
-                  <SelectItem value="adjust">Adjust</SelectItem>
-                  <SelectItem value="findings">Findings</SelectItem>
+                  <SelectItem value="bugs">{t("bugs")}</SelectItem>
+                  <SelectItem value="adjust">{t("adjust")}</SelectItem>
+                  <SelectItem value="findings">{t("findings")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority">{t("priority")}</Label>
               <Select name="priority" required defaultValue="medium">
                 <SelectTrigger>
-                  <SelectValue placeholder="Priority" />
+                  <SelectValue placeholder={t("priority")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="high">{t("high")}</SelectItem>
+                  <SelectItem value="medium">{t("medium")}</SelectItem>
+                  <SelectItem value="low">{t("low")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -100,21 +104,21 @@ export function CreateTaskDialog() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="labels">Labels</Label>
-              <Input id="labels" name="labels" placeholder="frontend, urgent (comma separated)" />
+              <Label htmlFor="labels">{t("labels")}</Label>
+              <Input id="labels" name="labels" placeholder={t("labelsPlaceholder")} />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="due_date">Due Date</Label>
+              <Label htmlFor="due_date">{t("dueDate")}</Label>
               <DatePicker date={dueDate} setDate={setDueDate} name="due_date" />
             </div>
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea id="description" name="description" placeholder="Optional details..." className="h-24" />
+            <Label htmlFor="description">{t("description")}</Label>
+            <Textarea id="description" name="description" className="h-24" />
           </div>
           <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>{t("cancel")}</Button>
             <SubmitButton />
           </div>
         </form>

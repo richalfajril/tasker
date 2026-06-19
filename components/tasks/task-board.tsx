@@ -7,8 +7,10 @@ import { TaskList } from "./task-list";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useLanguage } from "@/components/common/language-provider";
 
 export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
 
   const [sortOrder, setSortOrder] = useState("updated_desc");
@@ -68,7 +70,7 @@ export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
           <Input 
             ref={searchInputRef}
             type="search" 
-            placeholder="Search tasks..." 
+            placeholder={t("searchPlaceholder")} 
             className="pl-8 pr-12"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

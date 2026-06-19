@@ -19,7 +19,10 @@ interface DatePickerProps {
   name?: string;
 }
 
+import { useLanguage } from "@/components/common/language-provider";
+
 export function DatePicker({ date, setDate, id, name }: DatePickerProps) {
+  const { t } = useLanguage();
   return (
     <>
       <Popover>
@@ -33,7 +36,7 @@ export function DatePicker({ date, setDate, id, name }: DatePickerProps) {
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
+            {date ? format(date, "PPP") : <span>{t("pickDate")}</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

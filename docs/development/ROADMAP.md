@@ -150,6 +150,7 @@ Meningkatkan usability.
 
 * [x] Gunakan Switchtab (Tabs) untuk kategori (Bugs/Adjust/Findings) di dalam tab Ongoing & Done
 * [x] Tambahkan icon mata pada list untuk melihat detail deskripsi di modal
+* [x] Fitur lokalisasi sederhana (Toggle Bahasa ID/EN) untuk UI teks
 
 ---
 
@@ -184,6 +185,13 @@ Tambahkan:
 ## Due Date
 
 * [x] Deadline task
+
+---
+
+## Adjustments (Architecture & Maintainability)
+
+* [x] Gunakan *Feature-Sliced Design* (memisahkan komponen berdasarkan domain/fitur seperti `tasks/` dan `common/`)
+* [x] Tunda integrasi sistem Authentication untuk mempertahankan MVP 1-halaman
 
 ---
 

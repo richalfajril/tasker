@@ -1,5 +1,6 @@
 import { CreateTaskDialog } from "@/components/tasks/create-task-dialog";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle } from "@/components/common/language-toggle";
 
 export function Header() {
   return (
@@ -9,6 +10,7 @@ export function Header() {
         <p className="text-sm text-muted-foreground">Development Notes</p>
       </div>
       <div className="flex items-center gap-4">
+        <LanguageToggle />
         <ThemeToggle />
         <CreateTaskDialog />
       </div>

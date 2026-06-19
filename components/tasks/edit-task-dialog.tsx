@@ -14,11 +14,14 @@ import { Task } from "@/types/task";
 import { updateTask } from "@/app/actions/tasks";
 import { DatePicker } from "@/components/common/date-picker";
 
+import { useLanguage } from "@/components/common/language-provider";
+
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { t } = useLanguage();
   return (
     <Button type="submit" disabled={pending}>
-      {pending ? "Saving..." : "Save Changes"}
+      {pending ? t("saving") : t("saveChanges")}
     </Button>
   );
 }
@@ -28,6 +31,7 @@ interface EditTaskDialogProps {
 }
 
 export function EditTaskDialog({ task }: EditTaskDialogProps) {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [dueDate, setDueDate] = useState<Date | undefined>(
     task.due_date ? new Date(task.due_date) : undefined
@@ -37,11 +41,11 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
-      toast.success("Task updated successfully");
+      toast.success(t("taskUpdated"));
     } else if (state?.error) {
       toast.error(state.error);
     }
-  }, [state]);
+  }, [state, t]);
 
   // Reset due date state if dialog opens/closes and task changes
   useEffect(() => {
@@ -55,46 +59,46 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
       <DialogTrigger asChild>
         <Button variant="ghost" size="icon">
           <Pencil className="h-4 w-4" />
-          <span className="sr-only">Edit task</span>
+          <span className="sr-only">{t("editTask")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Edit Task</DialogTitle>
+          <DialogTitle>{t("editTask")}</DialogTitle>
         </DialogHeader>
         <form action={action} className="grid gap-4 py-4">
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
           <input type="hidden" name="id" value={task.id} />
           
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">{t("title")}</Label>
             <Input id="title" name="title" defaultValue={task.title} required />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">{t("category")}</Label>
               <Select name="category" defaultValue={task.category} required>
                 <SelectTrigger>
-                  <SelectValue placeholder="Category" />
+                  <SelectValue placeholder={t("category")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="bugs">Bugs</SelectItem>
-                  <SelectItem value="adjust">Adjust</SelectItem>
-                  <SelectItem value="findings">Findings</SelectItem>
+                  <SelectItem value="bugs">{t("bugs")}</SelectItem>
+                  <SelectItem value="adjust">{t("adjust")}</SelectItem>
+                  <SelectItem value="findings">{t("findings")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority">{t("priority")}</Label>
               <Select name="priority" defaultValue={task.priority} required>
                 <SelectTrigger>
-                  <SelectValue placeholder="Priority" />
+                  <SelectValue placeholder={t("priority")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="high">{t("high")}</SelectItem>
+                  <SelectItem value="medium">{t("medium")}</SelectItem>
+                  <SelectItem value="low">{t("low")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -102,26 +106,26 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="labels">Labels</Label>
+              <Label htmlFor="labels">{t("labels")}</Label>
               <Input 
                 id="labels" 
                 name="labels" 
                 defaultValue={task.labels?.join(", ")} 
-                placeholder="frontend, urgent" 
+                placeholder={t("labelsPlaceholder")} 
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="due_date">Due Date</Label>
+              <Label htmlFor="due_date">{t("dueDate")}</Label>
               <DatePicker date={dueDate} setDate={setDueDate} name="due_date" />
             </div>
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t("description")}</Label>
             <Textarea id="description" name="description" defaultValue={task.description || ""} className="h-24" />
           </div>
           <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={() => setOpen(false)}>{t("cancel")}</Button>
             <SubmitButton />
           </div>
         </form>
