@@ -25,6 +25,9 @@ Hindari over-engineering.
 * Minimal client components
 * Server Actions only
 * Maintainable architecture
+* Migration-based schema management
+* Documentation/database consistency
+* Schema validation through MCP
 
 ---
 

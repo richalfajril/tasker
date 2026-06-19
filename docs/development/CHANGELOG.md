@@ -16,6 +16,8 @@ Format mengikuti prinsip:
 ## Added
 
 * Diperkenalkannya tech stack baru sebagai single source of truth (Next.js 15, TailwindCSS v4, Zod, Sonner, lucide-react, installed shadcn/ui skills).
+* Supabase MCP support
+* Migration-based schema strategy
 
 ## Changed
 

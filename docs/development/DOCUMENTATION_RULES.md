@@ -313,3 +313,14 @@ docs/prd.md
 Dokumentasi adalah source of truth.
 
 Code mengikuti dokumentasi, bukan sebaliknya.
+
+---
+
+# Database Changes Workflow
+
+Database changes require:
+
+1. Documentation updates.
+2. Migration creation.
+3. Database inspection through MCP.
+4. Type synchronization.

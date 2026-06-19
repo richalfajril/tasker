@@ -12,9 +12,11 @@
 
 * Server Actions
 
-## Database
+## Database Tooling
 
 * Supabase PostgreSQL
+* Supabase MCP
+* Supabase migrations
 
 ## Validation
 

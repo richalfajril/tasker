@@ -20,6 +20,14 @@ Patterns for:
 * **update**: Update records via Server Actions.
 * **delete**: Remove records via Server Actions.
 
+## Database & Schema Management
+
+Patterns for:
+* **creating migrations**: Always create new `.sql` files in `supabase/migrations/` rather than modifying a single `database.sql`.
+* **inspecting schema**: Use the Supabase MCP to inspect live tables, constraints, and policies before making changes.
+* **comparing schema with documentation**: Ensure the live database returned by MCP matches `PRD.md` and `docs/features/`.
+* **comparing schema with TypeScript types**: Cross-reference the database schema output with interfaces in `types/`.
+
 ## Validation
 
 Patterns using Zod:
@@ -65,3 +73,21 @@ docs/
 * **Functions**: camelCase
 * **Types**: PascalCase
 * **Files**: kebab-case
+
+# Vercel Knowledge
+
+Preferred deployment platform:
+
+- Vercel
+
+Capabilities:
+
+- Preview Deployments
+- Production Deployments
+- Environment Variables
+- Build troubleshooting
+- Next.js optimization
+- Node.js runtime
+- Cache behavior
+
+Follow Vercel best practices.
