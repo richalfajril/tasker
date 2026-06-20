@@ -3,7 +3,7 @@
 import { useOptimistic, useState, useEffect, useRef } from "react";
 import { Task } from "@/types/task";
 
-import { TaskList } from "./task-list";
+import { TaskCategoryTab } from "./task-category-tab";
 import { Header } from "@/components/header";
 
 export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
@@ -63,7 +63,7 @@ export function TaskBoard({ initialTasks }: { initialTasks: Task[] }) {
         searchInputRef={searchInputRef}
       />
 
-      <TaskList tasks={filteredTasks} addOptimisticTask={addOptimisticTask} />
+      <TaskCategoryTab tasks={filteredTasks} addOptimisticTask={addOptimisticTask} />
     </div>
   );
 }

@@ -21,7 +21,7 @@ export function StatusToggle({ status, onChange, className }: StatusToggleProps)
       aria-checked={isDone}
       onClick={() => onChange(isDone ? "ongoing" : "done")}
       className={cn(
-        "relative inline-flex h-12 w-full sm:h-8 sm:w-32 p-1 shrink-0 cursor-pointer items-center rounded-full overflow-hidden transition-colors duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "relative inline-flex h-12 w-full sm:h-10 sm:w-36 p-1 shrink-0 cursor-pointer items-center rounded-full overflow-hidden transition-colors duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isDone ? "bg-emerald-600" : "bg-destructive",
         className
       )}
@@ -51,8 +51,8 @@ export function StatusToggle({ status, onChange, className }: StatusToggleProps)
       {/* Thumb */}
       <span
         className={cn(
-          "pointer-events-none z-10 absolute h-10 w-10 sm:h-6 sm:w-6 rounded-full bg-background shadow-lg ring-0 transition-all duration-300 ease-in-out",
-          isDone ? "left-[calc(100%-2.75rem)] sm:left-[calc(100%-1.75rem)]" : "left-1"
+          "pointer-events-none z-10 absolute h-10 w-10 sm:h-8 sm:w-8 rounded-full bg-background shadow-lg ring-0 transition-all duration-300 ease-in-out",
+          isDone ? "left-[calc(100%-2.75rem)] sm:left-[calc(100%-2.25rem)]" : "left-1"
         )}
       />
     </button>

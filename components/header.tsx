@@ -36,22 +36,22 @@ export function Header({ searchQuery, setSearchQuery, priorityFilter, setPriorit
       {/* Search & Sort (Mobile Row 2 / Desktop Right) */}
       <div className="flex gap-2 w-full md:w-auto items-center">
         <div className="relative flex-1 md:w-64 lg:w-80">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input 
             ref={searchInputRef}
             type="search" 
             placeholder={t("searchPlaceholder")} 
-            className="pl-8 pr-12"
+            className="pl-8 pr-12 h-12 sm:h-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Kbd className="absolute right-2 top-2">
+          <Kbd className="absolute right-2 top-1/2 -translate-y-1/2">
             <span className="text-xs">⌘</span>K
           </Kbd>
         </div>
         
         <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-          <SelectTrigger className="w-[140px] md:w-[150px]">
+          <SelectTrigger className="w-[140px] md:w-[150px] !h-12 sm:!h-10">
             <SelectValue placeholder={t("priority")} />
           </SelectTrigger>
           <SelectContent>

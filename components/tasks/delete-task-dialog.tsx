@@ -20,7 +20,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   const { t } = useLanguage();
   return (
-    <Button type="submit" variant="destructive" disabled={pending}>
+    <Button type="submit" variant="destructive" className="h-12 sm:h-10" disabled={pending}>
       {pending ? t("saving") : t("deleteTask")}
     </Button>
   );
@@ -65,7 +65,7 @@ export function DeleteTaskDialog({ taskId, open: controlledOpen, onOpenChange: s
           <input type="hidden" name="id" value={taskId} />
           {state?.error && <p className="text-sm text-destructive mb-4">{state.error}</p>}
           <AlertDialogFooter>
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>{t("cancel")}</Button>
+            <Button type="button" variant="outline" className="h-12 sm:h-10" onClick={() => setOpen(false)}>{t("cancel")}</Button>
             <SubmitButton />
           </AlertDialogFooter>
         </form>

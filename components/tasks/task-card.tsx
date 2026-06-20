@@ -116,23 +116,23 @@ export function TaskCard({ task, addOptimisticTask }: TaskCardProps) {
       <div className="flex items-center gap-1 shrink-0 w-[40px] justify-end">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+            <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-8 sm:w-8 text-muted-foreground hover:text-foreground">
               <MoreHorizontal className="h-4 w-4" />
               <span className="sr-only">More Options</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {task.description && (
-              <DropdownMenuItem onSelect={() => setIsViewOpen(true)} className="cursor-pointer">
+              <DropdownMenuItem onSelect={() => setIsViewOpen(true)} className="cursor-pointer h-12 sm:h-10">
                 <Eye className="mr-2 h-4 w-4" />
                 <span>{t("description")}</span>
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onSelect={() => setIsEditOpen(true)} className="cursor-pointer">
+            <DropdownMenuItem onSelect={() => setIsEditOpen(true)} className="cursor-pointer h-12 sm:h-10">
               <Pencil className="mr-2 h-4 w-4" />
               <span>{t("edit")}</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setIsDeleteOpen(true)} className="cursor-pointer text-destructive focus:text-destructive">
+            <DropdownMenuItem onSelect={() => setIsDeleteOpen(true)} className="cursor-pointer text-destructive focus:text-destructive h-12 sm:h-10">
               <Trash2 className="mr-2 h-4 w-4" />
               <span>{t("delete")}</span>
             </DropdownMenuItem>

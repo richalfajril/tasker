@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TaskCard } from "./task-card";
 import { useLanguage } from "@/components/common/language-provider";
 
-interface TaskListProps {
+interface TaskCategoryTabProps {
   tasks: Task[];
   addOptimisticTask?: (action: Task) => void;
 }
@@ -18,7 +18,7 @@ import { CreateTaskDialog } from "./create-task-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Card } from "@/components/ui/card";
 
-export function TaskList({ tasks, addOptimisticTask }: TaskListProps) {
+export function TaskCategoryTab({ tasks, addOptimisticTask }: TaskCategoryTabProps) {
   const { t } = useLanguage();
   const [status, setStatus] = useState<"ongoing" | "done">("ongoing");
   
@@ -61,10 +61,10 @@ export function TaskList({ tasks, addOptimisticTask }: TaskListProps) {
           <StatusToggle status={status} onChange={setStatus} />
         </div>
         
-        <TabsList className="grid w-full flex-1 grid-cols-3">
-          <TabsTrigger value="bugs" className="data-[state=active]:!text-red-600 dark:data-[state=active]:!text-red-400">{t("bugs")} ({bugs.length})</TabsTrigger>
-          <TabsTrigger value="adjust" className="data-[state=active]:!text-emerald-600 dark:data-[state=active]:!text-emerald-400">{t("adjust")} ({adjust.length})</TabsTrigger>
-          <TabsTrigger value="findings" className="data-[state=active]:!text-blue-600 dark:data-[state=active]:!text-blue-400">{t("findings")} ({findings.length})</TabsTrigger>
+        <TabsList className="grid w-full flex-1 grid-cols-3 h-14 sm:h-10">
+          <TabsTrigger value="bugs" className="h-12 sm:h-8 data-[state=active]:!text-red-600 dark:data-[state=active]:!text-red-400">{t("bugs")} ({bugs.length})</TabsTrigger>
+          <TabsTrigger value="adjust" className="h-12 sm:h-8 data-[state=active]:!text-emerald-600 dark:data-[state=active]:!text-emerald-400">{t("adjust")} ({adjust.length})</TabsTrigger>
+          <TabsTrigger value="findings" className="h-12 sm:h-8 data-[state=active]:!text-blue-600 dark:data-[state=active]:!text-blue-400">{t("findings")} ({findings.length})</TabsTrigger>
         </TabsList>
 
         <div className="hidden sm:block shrink-0 [&>button]:w-full">

@@ -55,7 +55,7 @@ export function CreateTaskDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="h-12 sm:h-10">
           <Plus className="mr-2 h-4 w-4" /> {t("newTask")}
         </Button>
       </DialogTrigger>
