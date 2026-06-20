@@ -5,7 +5,8 @@ export const dictionaries = {
     adjust: "Adjust",
     findings: "Findings",
     ongoing: "Ongoing",
-    done: "Done",
+    undone: "Active",
+    done: "Completed",
 
     // UI Elements
     newTask: "New Task",
@@ -21,6 +22,7 @@ export const dictionaries = {
     labelsPlaceholder: "frontend, urgent",
     dueDate: "Due Date",
     description: "Description",
+    allPriorities: "All Priorities",
     
     // Priorities
     high: "High",
@@ -34,6 +36,8 @@ export const dictionaries = {
     createTask: "Create Task",
     editTask: "Edit Task",
     deleteTask: "Delete Task",
+    edit: "Edit",
+    delete: "Delete",
     deleteConfirm: "Are you sure you want to delete this task?",
     deleteWarning: "This action cannot be undone.",
     viewDescription: "View Description",
@@ -56,7 +60,8 @@ export const dictionaries = {
     adjust: "Adjust",
     findings: "Findings",
     ongoing: "Ongoing",
-    done: "Done",
+    undone: "Aktif",
+    done: "Selesai",
 
     // UI Elements
     newTask: "Tugas Baru",
@@ -72,6 +77,7 @@ export const dictionaries = {
     labelsPlaceholder: "frontend, mendesak",
     dueDate: "Batas Waktu",
     description: "Deskripsi",
+    allPriorities: "Semua Prioritas",
     
     // Priorities
     high: "Tinggi",
@@ -85,6 +91,8 @@ export const dictionaries = {
     createTask: "Buat Tugas",
     editTask: "Edit Tugas",
     deleteTask: "Hapus Tugas",
+    edit: "Edit",
+    delete: "Hapus",
     deleteConfirm: "Apakah Anda yakin ingin menghapus tugas ini?",
     deleteWarning: "Tindakan ini tidak dapat dibatalkan.",
     viewDescription: "Lihat Deskripsi",

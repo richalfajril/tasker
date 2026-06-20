@@ -12,6 +12,8 @@ import { useLanguage } from "@/components/common/language-provider";
 
 interface DeleteTaskDialogProps {
   taskId: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 function SubmitButton() {
@@ -24,9 +26,13 @@ function SubmitButton() {
   );
 }
 
-export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
+export function DeleteTaskDialog({ taskId, open: controlledOpen, onOpenChange: setControlledOpen }: DeleteTaskDialogProps) {
   const { t } = useLanguage();
-  const [open, setOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const setOpen = isControlled && setControlledOpen ? setControlledOpen : setUncontrolledOpen;
   const [state, action] = useActionState(deleteTask, null);
 
   useEffect(() => {
@@ -36,16 +42,18 @@ export function DeleteTaskDialog({ taskId }: DeleteTaskDialogProps) {
     } else if (state?.error) {
       toast.error(state.error);
     }
-  }, [state, t]);
+  }, [state, t, setOpen]);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
-          <Trash2 className="h-4 w-4" />
-          <span className="sr-only">{t("deleteTask")}</span>
-        </Button>
-      </AlertDialogTrigger>
+      {!isControlled && (
+        <AlertDialogTrigger asChild>
+          <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive hover:bg-destructive/10">
+            <Trash2 className="h-4 w-4" />
+            <span className="sr-only">{t("deleteTask")}</span>
+          </Button>
+        </AlertDialogTrigger>
+      )}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("deleteConfirm")}</AlertDialogTitle>

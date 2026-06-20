@@ -151,6 +151,13 @@ Meningkatkan usability.
 * [x] Gunakan Switchtab (Tabs) untuk kategori (Bugs/Adjust/Findings) di dalam tab Ongoing & Done
 * [x] Tambahkan icon mata pada list untuk melihat detail deskripsi di modal
 * [x] Fitur lokalisasi sederhana (Toggle Bahasa ID/EN) untuk UI teks
+* [x] Rombak UI ke arsitektur *Dashboard Split* (w-64 Sidebar vertikal, Main Content flex-1) khusus pada layar Desktop
+* [x] Revert *Dashboard Split* menjadi *Unified TopBar* yang meng-inline Title, Search, Filter, dan Toggles dalam satu baris (Desktop) dan mode *Compact* pada Mobile.
+* [x] Hilangkan label Kategori pada setiap Task
+* [x] Hapus kategori "bugs" sepenuhnya dari sistem karena batasan tabel Supabase hanya memperbolehkan kategori "adjust" dan "findings".
+* [x] Ubah *TaskCard* menjadi desain *Row List* padat dengan tombol aksi Edit dan Delete dibungkus di dalam Menu Dropdown ("..."), tidak perlu hover lagi.
+* [x] Pisahkan Toggle Status (Belum Selesai/Selesai) menggunakan komponen "Airplane Mode Switch" (Merah/Hijau) diposisikan di sebelah kiri Toggle Kategori
+* [x] Pindahkan tombol "New Task" dari Sidebar ke atas Task List (sejajar di sebelah kanan tab Kategori), ganti teks menjadi "+ Task" dan hapus shortcut `<kbd>`
 
 ---
 

@@ -17,22 +17,26 @@ interface DatePickerProps {
   setDate: (date: Date | undefined) => void;
   id?: string;
   name?: string;
+  className?: string;
 }
 
 import { useLanguage } from "@/components/common/language-provider";
 
-export function DatePicker({ date, setDate, id, name }: DatePickerProps) {
+export function DatePicker({ date, setDate, id, name, className }: DatePickerProps) {
   const { t } = useLanguage();
+  const [open, setOpen] = React.useState(false);
+
   return (
     <>
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             id={id}
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
-              !date && "text-muted-foreground"
+              !date && "text-muted-foreground",
+              className
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -43,7 +47,10 @@ export function DatePicker({ date, setDate, id, name }: DatePickerProps) {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={(selectedDate) => {
+              setDate(selectedDate);
+              setOpen(false);
+            }}
           />
         </PopoverContent>
       </Popover>

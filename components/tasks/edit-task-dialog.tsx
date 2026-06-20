@@ -20,7 +20,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   const { t } = useLanguage();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" className="h-12" disabled={pending}>
       {pending ? t("saving") : t("saveChanges")}
     </Button>
   );
@@ -28,11 +28,18 @@ function SubmitButton() {
 
 interface EditTaskDialogProps {
   task: Task;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function EditTaskDialog({ task }: EditTaskDialogProps) {
+export function EditTaskDialog({ task, open: controlledOpen, onOpenChange: setControlledOpen }: EditTaskDialogProps) {
   const { t } = useLanguage();
-  const [open, setOpen] = useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const setOpen = isControlled && setControlledOpen ? setControlledOpen : setUncontrolledOpen;
+
   const [dueDate, setDueDate] = useState<Date | undefined>(
     task.due_date ? new Date(task.due_date) : undefined
   );
@@ -45,7 +52,7 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
     } else if (state?.error) {
       toast.error(state.error);
     }
-  }, [state, t]);
+  }, [state, t, setOpen]);
 
   // Reset due date state if dialog opens/closes and task changes
   useEffect(() => {
@@ -56,15 +63,17 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Pencil className="h-4 w-4" />
-          <span className="sr-only">{t("editTask")}</span>
-        </Button>
-      </DialogTrigger>
+      {!isControlled && (
+        <DialogTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <Pencil className="h-4 w-4" />
+            <span className="sr-only">{t("editTask")}</span>
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t("editTask")}</DialogTitle>
+          <DialogTitle className="font-bold text-xl">{t("editTask")}</DialogTitle>
         </DialogHeader>
         <form action={action} className="grid gap-4 py-4">
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
@@ -72,14 +81,14 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
           
           <div className="grid gap-2">
             <Label htmlFor="title">{t("title")}</Label>
-            <Input id="title" name="title" defaultValue={task.title} required />
+            <Input id="title" name="title" defaultValue={task.title} className="h-12" required />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="category">{t("category")}</Label>
               <Select name="category" defaultValue={task.category} required>
-                <SelectTrigger>
+                <SelectTrigger className="w-full h-12">
                   <SelectValue placeholder={t("category")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -92,7 +101,7 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
             <div className="grid gap-2">
               <Label htmlFor="priority">{t("priority")}</Label>
               <Select name="priority" defaultValue={task.priority} required>
-                <SelectTrigger>
+                <SelectTrigger className="w-full h-12">
                   <SelectValue placeholder={t("priority")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -112,11 +121,12 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
                 name="labels" 
                 defaultValue={task.labels?.join(", ")} 
                 placeholder={t("labelsPlaceholder")} 
+                className="h-12"
               />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="due_date">{t("dueDate")}</Label>
-              <DatePicker date={dueDate} setDate={setDueDate} name="due_date" />
+              <DatePicker date={dueDate} setDate={setDueDate} name="due_date" className="h-12" />
             </div>
           </div>
 
@@ -125,7 +135,7 @@ export function EditTaskDialog({ task }: EditTaskDialogProps) {
             <Textarea id="description" name="description" defaultValue={task.description || ""} className="h-24" />
           </div>
           <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>{t("cancel")}</Button>
+            <Button type="button" variant="outline" className="h-12" onClick={() => setOpen(false)}>{t("cancel")}</Button>
             <SubmitButton />
           </div>
         </form>

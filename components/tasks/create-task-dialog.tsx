@@ -19,7 +19,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   const { t } = useLanguage();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" className="h-12" disabled={pending}>
       {pending ? t("saving") : t("saveChanges")}
     </Button>
   );
@@ -57,27 +57,24 @@ export function CreateTaskDialog() {
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" /> {t("newTask")}
-          <kbd className="ml-2 pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-            <span className="text-xs">⌘</span>N
-          </kbd>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t("createTask")}</DialogTitle>
+          <DialogTitle className="font-bold text-xl">{t("createTask")}</DialogTitle>
         </DialogHeader>
         <form action={action} className="grid gap-4 py-4">
           {state?.error && <p className="text-sm text-destructive">{state.error}</p>}
           <div className="grid gap-2">
             <Label htmlFor="title">{t("title")}</Label>
-            <Input id="title" name="title" required />
+            <Input id="title" name="title" className="h-12" required />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="category">{t("category")}</Label>
               <Select name="category" required defaultValue="bugs">
-                <SelectTrigger>
+                <SelectTrigger className="w-full h-12">
                   <SelectValue placeholder={t("category")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -90,7 +87,7 @@ export function CreateTaskDialog() {
             <div className="grid gap-2">
               <Label htmlFor="priority">{t("priority")}</Label>
               <Select name="priority" required defaultValue="medium">
-                <SelectTrigger>
+                <SelectTrigger className="w-full h-12">
                   <SelectValue placeholder={t("priority")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -105,11 +102,11 @@ export function CreateTaskDialog() {
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="labels">{t("labels")}</Label>
-              <Input id="labels" name="labels" placeholder={t("labelsPlaceholder")} />
+              <Input id="labels" name="labels" className="h-12" placeholder={t("labelsPlaceholder")} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="due_date">{t("dueDate")}</Label>
-              <DatePicker date={dueDate} setDate={setDueDate} name="due_date" />
+              <DatePicker date={dueDate} setDate={setDueDate} name="due_date" className="h-12" />
             </div>
           </div>
 
@@ -118,7 +115,7 @@ export function CreateTaskDialog() {
             <Textarea id="description" name="description" className="h-24" />
           </div>
           <div className="flex justify-end gap-3 mt-4">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)}>{t("cancel")}</Button>
+            <Button type="button" variant="outline" className="h-12" onClick={() => setOpen(false)}>{t("cancel")}</Button>
             <SubmitButton />
           </div>
         </form>
