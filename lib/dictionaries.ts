@@ -5,8 +5,8 @@ export const dictionaries = {
     adjust: "Adjust",
     findings: "Findings",
     ongoing: "Ongoing",
-    undone: "Active",
-    done: "Completed",
+    undone: "Active Task",
+    done: "Completed Task",
 
     // UI Elements
     newTask: "New Task",
@@ -60,8 +60,8 @@ export const dictionaries = {
     adjust: "Adjust",
     findings: "Findings",
     ongoing: "Ongoing",
-    undone: "Aktif",
-    done: "Selesai",
+    undone: "Task Aktif",
+    done: "Task Selesai",
 
     // UI Elements
     newTask: "Tugas Baru",
