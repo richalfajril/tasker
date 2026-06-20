@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tasker Notes",
+  title: "Taskcuy Notes",
   description: "Internal single-page task management",
 };
 
